@@ -1,0 +1,210 @@
+.popup__overlay {
+  display: flex;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.77);
+  opacity: 0;
+  visibility: hidden;
+  transition: all linear 0.3s;
+}
+.popup__overlay--open {
+  opacity: 1;
+  visibility: visible;
+}
+.popup__overlay--open .popup__main {
+  transform: translateX(0);
+}
+.popup__inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.popup__main {
+  position: absolute;
+  z-index: 9999;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 470px;
+  background: #FFFFFF;
+  overflow-y: auto;
+  transform: translateX(600px);
+  transition: all linear 0.3s;
+}
+.popup__close {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 60px;
+  width: 20px;
+  height: 32px;
+  background-image: url("../img/icon_arrow-right.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  cursor: pointer;
+}
+.popup__header {
+  position: relative;
+  background-color: #ff943d;
+  height: 225px;
+  padding: 0 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.popup__header h3 {
+  position: relative;
+  font-size: 6rem;
+  color: #ffffff;
+}
+.popup__body {
+  padding: 0 67px 0 57px;
+}
+.basket__item {
+  padding: 30px 0;
+  display: flex;
+  border-bottom: 1px solid #d9d9d9;
+  font-family: "Gilroy";
+  font-weight: 300;
+  text-transform: uppercase;
+  color: #2f2f2f;
+  font-size: 1.8rem;
+}
+.basket__make-order {
+  padding: 21px 7px 20px 0;
+  text-align: center;
+}
+.basket__order-btn {
+  font-family: "Gilroy";
+  font-weight: 800;
+  color: #ffffff;
+  font-size: 1.8rem;
+  line-height: 6.2rem;
+  padding: 0 55px;
+  background-color: #faa21b;
+  border-radius: 4px;
+  transition: all linear 0.3s;
+}
+.basket__order-btn:hover {
+  background-color: #323232;
+}
+.basket-total {
+  line-height: 1;
+  padding: 38px 67px 28px 57px;
+  border-bottom: 1px solid #d9d9d9;
+  color: #2f2f2f;
+  font-family: "Gilroy";
+  font-weight: 300;
+}
+.basket-total__title {
+  font-size: 3rem;
+  text-transform: uppercase;
+}
+.basket-total__amount {
+  font-size: 4.8rem;
+  line-height: 5.2rem;
+}
+.basket-item__img-wrapper {
+  margin-right: 35px;
+}
+.basket-item__type {
+  margin-bottom: 13px;
+  text-transform: uppercase;
+}
+.basket-item__amount {
+  display: flex;
+  align-items: center;
+  font-size: 2.4rem;
+  margin-bottom: 3px;
+}
+.basket-item__money {
+  font-family: "Gilroy";
+  font-weight: 800;
+  font-size: 2.4rem;
+}
+
+body .btn-group {
+  width: 122px;
+  min-width: 122px;
+  margin: 0 0 6px 0;
+}
+body .btn-group .dropdown-toggle {
+  position: relative;
+  width: 122px;
+  min-width: 122px;
+  color: #ffffff;
+  cursor: pointer;
+  user-select: none;
+  font-size: 2.4rem;
+  height: 40px;
+  padding: 3px 0 5px 45px;
+  background-image: none;
+}
+body .btn-group .dropdown-toggle:hover {
+  background-color: transparent;
+}
+body .btn-group .dropdown-toggle:before {
+  content: "";
+  width: 61px;
+  height: 3px;
+  background-color: #fff;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+body .btn-group .dropdown-menu {
+  width: 122px;
+  min-width: 122px;
+  border: none;
+  border-radius: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+  padding: 16px 14px 0;
+  max-height: 187px;
+  overflow-y: auto;
+  margin-top: 0;
+}
+body .btn-group .dropdown-menu::-webkit-scrollbar {
+  width: 3px;
+}
+body .btn-group .dropdown-menu::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.1);
+  height: 40px;
+}
+body .btn-group .dropdown-menu li {
+  margin-bottom: 9px;
+}
+body .btn-group .dropdown-menu li a {
+  display: inline-block;
+  font-size: 2.4rem;
+  line-height: 3.5rem;
+  color: #ffffff;
+  border-radius: 4px;
+  padding: 0 15px;
+}
+body .btn-group .dropdown-menu li a:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+body .btn-group .caret {
+  border-top: 7px dashed;
+  border-right: 7px solid transparent;
+  border-left: 7px solid transparent;
+  right: 39px;
+  top: 14px;
+}
+
+body .basket-item__amount .dropdown-toggle {
+  color: #2f2f2f;
+}
+body .basket-item__amount .dropdown-toggle a {
+  color: #2f2f2f;
+}
+
+/*# sourceMappingURL=style.css.map */
