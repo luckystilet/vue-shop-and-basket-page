@@ -1,0 +1,18 @@
+@media(max-width: 1100px) {
+  .goods__container {
+    justify-content: space-around;
+  }
+
+  .product {
+    &:nth-child(1) {
+      .product__img-link-wrapper:after {
+        left: -23px;
+      }
+    }
+    &:nth-child(4) {
+      .product__img-link-wrapper:after {
+        right: -23px;
+      }
+    }
+  }
+}
