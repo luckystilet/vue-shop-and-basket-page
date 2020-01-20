@@ -23,22 +23,18 @@
             </span>
             </div>
             <div class="product__order">
-                <dropdown
-                    :options="arrayOfObjects"
-                    :selected="basketAmount"
-                    @updateOption="handler($event)"></dropdown>
-<!--                <div class="custom-select" style="width:122px;" @click="pushSelectVal()" ref="customSelect">-->
-<!--                    <select ref="select">-->
-<!--                        <option-->
-<!--                                v-for="(el, idx) of 51"-->
-<!--                                :key="idx"-->
-<!--                                :value="el+1"-->
-<!--                                :selected="idx === basketAmount"-->
-<!--                        >-->
-<!--                            {{idx}}-->
-<!--                        </option>-->
-<!--                    </select>-->
-<!--                </div>-->
+                <div class="custom-select" style="width:122px;" @click="pushSelectVal()" ref="customSelect">
+                    <select ref="select">
+                        <option
+                                v-for="(el, idx) of 51"
+                                :key="idx"
+                                :value="el+1"
+                                :selected="idx === basketAmount"
+                        >
+                            {{idx}}
+                        </option>
+                    </select>
+                </div>
                 <button
                     class="product__basket"
                     @click="openBasketPopup"
@@ -49,13 +45,12 @@
 </template>
 
 <script>
-    import dropdown from 'vue-dropdowns'
     import {mapGetters} from 'vuex'
     export default {
         name: "Product",
         props: ['product'],
         data: ()=>({
-            amount: 1,
+            amount: 1
         }),
         computed: {
             ...mapGetters(['getBasket']),
@@ -64,48 +59,32 @@
                     return basketEl.id === this.product.id
                 })
                 if(currentProductInBasket != undefined){
-                    return {name: currentProductInBasket.amount}
+                    return currentProductInBasket.amount
                 }
-                return {name: 3}
+                return 3
 
-            },
-            arrayOfObjects(){
-                const arrayOfObjects = []
-                for(let i = 1; i<=50; i++){
-                    const obj = {
-                        name: i
-                    }
-                    arrayOfObjects.push(obj)
-                }
-                return arrayOfObjects
             }
         },
         methods: {
-            handler(obj){
+            pushSelectVal(){
+                const val = this.$refs.select.value -2
                 this.$store.commit('updateBasket', {
                     id: this.product.id,
-                    amount: obj.name
+                    amount: val
                 })
             },
             openBasketPopup(){
                 const basketOverlay = document.getElementById('basket-overlay')
                 basketOverlay.classList.add('popup__overlay--open')
-            },
-            // methodToRunOnSelect(payload) {
-            //     this.object = payload;
-            // }
+            }
         },
-        components: {dropdown},
-        // watch: {
-        //     basketAmount(val, old){
-        //         this.$refs.customSelect.querySelector('.select-selected').innerText = val
-        //     }
-        // },
+        watch: {
+            basketAmount(val, old){
+                this.$refs.customSelect.querySelector('.select-selected').innerText = val
+            }
+        },
         mounted(){
-            this.$store.commit('updateBasket', {
-                id: this.product.id,
-                amount: this.basketAmount.name
-            })
+            this.pushSelectVal()
         },
     }
 </script>
@@ -147,7 +126,7 @@
         }
         &__descr{
             background-color: rgba(0,0,0,.1);
-            padding: 35px 21px 41px;
+            padding: 35px 21px 44px;
             box-shadow: 0px 0px 32px 0px rgba(0, 0, 0, 0.1);
         }
         &__disscount{
@@ -189,7 +168,7 @@
         }
         &__order{
             display: flex;
-            align-items: flex-end;
+            align-items: flex-start;
         }
     }
 </style>

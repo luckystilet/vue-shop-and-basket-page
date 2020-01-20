@@ -29,27 +29,22 @@
                                 <div>fizzyslim con sapore di</div>
                                 <div class="basket-item__type">{{el.title}}</div>
                                 <div class="basket-item__amount">QTÀ:
-                                    <dropdown
-                                            :options="arrayOfObjects"
-                                            :selected="{name: el.amount}"
-                                            @updateOption="pushSelectValues($event, el.id)">
-                                    </dropdown>
-<!--                                    <div-->
-<!--                                        class="custom-select amount-popup-select"-->
-<!--                                        @click="pushSelectValues(el.id, idx)"-->
-<!--                                        style="width:50px;"-->
-<!--                                    >-->
-<!--                                        <select ref="select">-->
-<!--                                            <option-->
-<!--                                                v-for="(number, index) of 51"-->
-<!--                                                :key="index"-->
-<!--                                                :value="number+1"-->
-<!--                                                :selected="index===el.amount"-->
-<!--                                            >-->
-<!--                                                {{index}}-->
-<!--                                            </option>-->
-<!--                                        </select>-->
-<!--                                    </div>-->
+                                    <div
+                                        class="custom-select amount-popup-select"
+                                        @click="pushSelectValues(el.id, idx)"
+                                        style="width:50px;"
+                                    >
+                                        <select ref="select">
+                                            <option
+                                                v-for="(number, index) of 51"
+                                                :key="index"
+                                                :value="number+1"
+                                                :selected="index===el.amount"
+                                            >
+                                                {{index}}
+                                            </option>
+                                        </select>
+                                    </div>
                                 </div>
                                 <div class="basket-item__money"><span>€</span>{{(el.price*el.amount).toFixed(2)}}</div>
                             </div>
@@ -73,7 +68,6 @@
 
 <script>
     import { mapState } from 'vuex'
-    import dropdown from 'vue-dropdowns'
     export default {
         name: "Basket",
         data: ()=>({
@@ -85,52 +79,40 @@
                     return collector + el.amount * el.price
                  },0)
                 return totalPrice.toFixed(2)
-            },
-            arrayOfObjects(){
-                const arrayOfObjects = []
-                for(let i = 1; i<=50; i++){
-                    const obj = {
-                        name: i
-                    }
-                    arrayOfObjects.push(obj)
-                }
-                return arrayOfObjects
             }
-
         },
         methods: {
             closePopup(){
                 document.getElementById('basket-overlay').classList.remove('popup__overlay--open')
             },
             outsidePopupHandler(e){
-                e.stopPropagation()
                 const target = e.target
                 const basket = document.getElementById('basket-main')
                 const itsBasket = target == basket || basket.contains(target)
                 if(!itsBasket){
-                    console.log("handler",       );
                     this.closePopup()
                 }
             },
-            // pushSelectValues(id, idx){
-            //     const val = this.$refs.select[idx].value - 2
-            //     this.$store.commit('updateBasket', {
-            //         id: id,
-            //         amount: val
-            //     })
-            // },
-            pushSelectValues(obj, id){
-                    this.$store.commit('updateBasket', {
-                        id: id,
-                        amount: obj.name
-                    })
-            }
+            pushSelectValues(id, idx){
+                const val = this.$refs.select[idx].value - 2
+                this.$store.commit('updateBasket', {
+                    id: id,
+                    amount: val
+                })
+                this.$emit('updateAmount')
+            },
         },
-        components: {dropdown},
         watch: {
-            basket(val,old){
-
+            basket(val, old){
+                document.querySelectorAll('.amount-popup-select').forEach((el, idx)=>{
+                    el.querySelectorAll('.select-selected')[0].innerText = val[idx].amount
+                })
             }
         },
     }
 </script>
+<style scoped>
+    .custom-select{
+        color: #2f2f2f;
+    }
+</style>
