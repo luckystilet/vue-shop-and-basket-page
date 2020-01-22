@@ -26,22 +26,11 @@
                 <dropdown
                     :options="arrayOfObjects"
                     :selected="basketAmount"
-                    @updateOption="handler($event)"></dropdown>
-<!--                <div class="custom-select" style="width:122px;" @click="pushSelectVal()" ref="customSelect">-->
-<!--                    <select ref="select">-->
-<!--                        <option-->
-<!--                                v-for="(el, idx) of 51"-->
-<!--                                :key="idx"-->
-<!--                                :value="el+1"-->
-<!--                                :selected="idx === basketAmount"-->
-<!--                        >-->
-<!--                            {{idx}}-->
-<!--                        </option>-->
-<!--                    </select>-->
-<!--                </div>-->
+                    @updateOption="handler($event)"
+                ></dropdown>
                 <button
                     class="product__basket"
-                    @click="openBasketPopup"
+                    @mousedown="openBasketPopup"
                 ></button>
             </div>
         </div>
@@ -49,7 +38,7 @@
 </template>
 
 <script>
-    import dropdown from 'vue-dropdowns'
+    import dropdown from './Dropdown'
     import {mapGetters} from 'vuex'
     export default {
         name: "Product",
@@ -66,7 +55,7 @@
                 if(currentProductInBasket != undefined){
                     return {name: currentProductInBasket.amount}
                 }
-                return {name: 3}
+                return {name: 0}
 
             },
             arrayOfObjects(){
@@ -91,16 +80,8 @@
                 const basketOverlay = document.getElementById('basket-overlay')
                 basketOverlay.classList.add('popup__overlay--open')
             },
-            // methodToRunOnSelect(payload) {
-            //     this.object = payload;
-            // }
         },
         components: {dropdown},
-        // watch: {
-        //     basketAmount(val, old){
-        //         this.$refs.customSelect.querySelector('.select-selected').innerText = val
-        //     }
-        // },
         mounted(){
             this.$store.commit('updateBasket', {
                 id: this.product.id,

@@ -74,6 +74,7 @@
 }
 .basket{
   &__item{
+    position: relative;
     padding: 30px 0;
     display: flex;
     border-bottom: 1px solid #d9d9d9;
@@ -118,6 +119,17 @@
     }
   }
   &-item{
+    &__close{
+      height: 12px;
+      width: 12px;
+      position: absolute;
+      top: 20px;
+      right: -20px;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-image: url('../img/close2.svg');
+      cursor: pointer;
+    }
     &__img{
       &-wrapper{
         margin-right: 35px;
@@ -132,31 +144,6 @@
       align-items: center;
       font-size: 2.4rem;
       margin-bottom: 3px;
-
-
-
-
-
-      //.amount-popup-select{
-      //  margin-left: -6px;
-      //  .select-items{
-      //    align-items: center;
-      //    background-color: rgba(254,93,141,.9);
-      //  }
-      //  .select-selected{
-      //    color: #2f2f2f;
-      //    padding: 0;
-      //    text-align: center;
-      //    &:before{
-      //      content: none;
-      //    }
-      //    &:after{
-      //      border-color: #2f2f2f transparent transparent transparent;
-      //      top: 13px;
-      //      right: -5px;
-      //    }
-      //  }
-      //}
     }
     &__money{
       font-family: 'Gilroy';
@@ -237,7 +224,7 @@ body .btn-group{
     border-top: 7px dashed;
     border-right: 7px solid transparent;
     border-left: 7px solid transparent;
-    right: 39px;
+    right: 38px;
     top: 14px;
   }
 }
@@ -250,3 +237,4 @@ body .basket-item__amount{
     }
   }
 }
+

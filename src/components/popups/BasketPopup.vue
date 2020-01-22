@@ -14,13 +14,17 @@
                     <h3>Carello</h3>
                 </div>
                 <div class="popup__body">
-                    <h2 v-if="!basket.length">Basket is empty :( Please add some</h2>
+                    <p  v-if="!getBasket.length" class="sorry-msg">Basket is empty :( Please add some</p>
                     <ul class="basket__list" v-else>
                         <li
                                 class="basket__item"
-                                v-for="(el, idx) in basket"
+                                v-for="(el, idx) in getBasket"
                                 :key="el.id"
                         >
+                            <div
+                                class="basket-item__close"
+                                @click.stop="deleteProduct(el.id)"
+                            ></div>
                             <div class="basket-item__img-wrapper">
                                 <img :src="el.imgSmall" alt="" class="basket-item__img">
                             </div>
@@ -29,27 +33,13 @@
                                 <div>fizzyslim con sapore di</div>
                                 <div class="basket-item__type">{{el.title}}</div>
                                 <div class="basket-item__amount">QTÀ:
-                                    <dropdown
+                                    <div class="small">
+                                        <dropdown
                                             :options="arrayOfObjects"
                                             :selected="{name: el.amount}"
                                             @updateOption="pushSelectValues($event, el.id)">
-                                    </dropdown>
-<!--                                    <div-->
-<!--                                        class="custom-select amount-popup-select"-->
-<!--                                        @click="pushSelectValues(el.id, idx)"-->
-<!--                                        style="width:50px;"-->
-<!--                                    >-->
-<!--                                        <select ref="select">-->
-<!--                                            <option-->
-<!--                                                v-for="(number, index) of 51"-->
-<!--                                                :key="index"-->
-<!--                                                :value="number+1"-->
-<!--                                                :selected="index===el.amount"-->
-<!--                                            >-->
-<!--                                                {{index}}-->
-<!--                                            </option>-->
-<!--                                        </select>-->
-<!--                                    </div>-->
+                                        </dropdown>
+                                    </div>
                                 </div>
                                 <div class="basket-item__money"><span>€</span>{{(el.price*el.amount).toFixed(2)}}</div>
                             </div>
@@ -72,16 +62,16 @@
 </template>
 
 <script>
-    import { mapState } from 'vuex'
-    import dropdown from 'vue-dropdowns'
+    import { mapGetters, mapMutations } from 'vuex'
+    import dropdown from '../Dropdown'
     export default {
         name: "Basket",
         data: ()=>({
         }),
         computed: {
-            ...mapState(['basket', 'products']),
+            ...mapGetters(['getBasket', 'products']),
             total(){
-                 let totalPrice = this.basket.reduce((collector, el)=>{
+                 let totalPrice = this.getBasket.reduce((collector, el)=>{
                     return collector + el.amount * el.price
                  },0)
                 return totalPrice.toFixed(2)
@@ -96,29 +86,18 @@
                 }
                 return arrayOfObjects
             }
-
         },
         methods: {
+            ...mapMutations(['deleteProduct']),
             closePopup(){
                 document.getElementById('basket-overlay').classList.remove('popup__overlay--open')
             },
             outsidePopupHandler(e){
-                e.stopPropagation()
                 const target = e.target
                 const basket = document.getElementById('basket-main')
                 const itsBasket = target == basket || basket.contains(target)
-                if(!itsBasket){
-                    console.log("handler",       );
-                    this.closePopup()
-                }
+                if(!itsBasket)this.closePopup()
             },
-            // pushSelectValues(id, idx){
-            //     const val = this.$refs.select[idx].value - 2
-            //     this.$store.commit('updateBasket', {
-            //         id: id,
-            //         amount: val
-            //     })
-            // },
             pushSelectValues(obj, id){
                     this.$store.commit('updateBasket', {
                         id: id,
@@ -127,10 +106,5 @@
             }
         },
         components: {dropdown},
-        watch: {
-            basket(val,old){
-
-            }
-        },
     }
 </script>

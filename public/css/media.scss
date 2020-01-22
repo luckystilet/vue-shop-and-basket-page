@@ -1,0 +1,38 @@
+@media(max-width: 1100px) {
+  body{
+    font-size: 1.5rem;
+    .goods{
+      padding-top: 40px;
+      padding-bottom: 40px;
+    }
+    .popup__main{
+      width: 100%;
+    }
+    .goods__container {
+      justify-content: space-around;
+    }
+
+    .product {
+      &:nth-child(1) {
+        .product__img-link-wrapper:after {
+          left: -23px;
+        }
+      }
+      &:nth-child(4) {
+        .product__img-link-wrapper:after {
+          right: -23px;
+        }
+      }
+    }
+  }
+}
+@media(max-width: 580px){
+  body{
+    font-size: 1.4rem;
+  }
+}
+@media(max-width: 320px){
+  body{
+    font-size: 1.2rem;
+  }
+}
