@@ -47,6 +47,12 @@ export default new Vuex.Store({
         },
         nullProducts(state){
             state.basket = []
+        },
+        deleteProduct(state, id){
+            const idx = state.basket.findIndex((el)=>el.id===id)
+            if(idx!= -1){
+                state.basket.splice(idx, 1)
+            }
         }
     },
     getters: {

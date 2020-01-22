@@ -23,21 +23,14 @@
             </span>
             </div>
             <div class="product__order">
-                <div class="custom-select" style="width:122px;" @click="pushSelectVal()" ref="customSelect">
-                    <select ref="select">
-                        <option
-                                v-for="(el, idx) of 51"
-                                :key="idx"
-                                :value="el+1"
-                                :selected="idx === basketAmount"
-                        >
-                            {{idx}}
-                        </option>
-                    </select>
-                </div>
+                <dropdown
+                    :options="arrayOfObjects"
+                    :selected="basketAmount"
+                    @updateOption="handler($event)"
+                ></dropdown>
                 <button
                     class="product__basket"
-                    @click="openBasketPopup"
+                    @mousedown="openBasketPopup"
                 ></button>
             </div>
         </div>
@@ -45,12 +38,13 @@
 </template>
 
 <script>
+    import dropdown from './Dropdown'
     import {mapGetters} from 'vuex'
     export default {
         name: "Product",
         props: ['product'],
         data: ()=>({
-            amount: 1
+            amount: 1,
         }),
         computed: {
             ...mapGetters(['getBasket']),
@@ -59,32 +53,40 @@
                     return basketEl.id === this.product.id
                 })
                 if(currentProductInBasket != undefined){
-                    return currentProductInBasket.amount
+                    return {name: currentProductInBasket.amount}
                 }
-                return 3
+                return {name: 0}
 
+            },
+            arrayOfObjects(){
+                const arrayOfObjects = []
+                for(let i = 1; i<=50; i++){
+                    const obj = {
+                        name: i
+                    }
+                    arrayOfObjects.push(obj)
+                }
+                return arrayOfObjects
             }
         },
         methods: {
-            pushSelectVal(){
-                const val = this.$refs.select.value -2
+            handler(obj){
                 this.$store.commit('updateBasket', {
                     id: this.product.id,
-                    amount: val
+                    amount: obj.name
                 })
             },
             openBasketPopup(){
                 const basketOverlay = document.getElementById('basket-overlay')
                 basketOverlay.classList.add('popup__overlay--open')
-            }
+            },
         },
-        watch: {
-            basketAmount(val, old){
-                this.$refs.customSelect.querySelector('.select-selected').innerText = val
-            }
-        },
+        components: {dropdown},
         mounted(){
-            this.pushSelectVal()
+            this.$store.commit('updateBasket', {
+                id: this.product.id,
+                amount: this.basketAmount.name
+            })
         },
     }
 </script>
@@ -126,7 +128,7 @@
         }
         &__descr{
             background-color: rgba(0,0,0,.1);
-            padding: 35px 21px 44px;
+            padding: 35px 21px 41px;
             box-shadow: 0px 0px 32px 0px rgba(0, 0, 0, 0.1);
         }
         &__disscount{
@@ -168,7 +170,7 @@
         }
         &__order{
             display: flex;
-            align-items: flex-start;
+            align-items: flex-end;
         }
     }
 </style>

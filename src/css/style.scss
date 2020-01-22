@@ -74,6 +74,7 @@
 }
 .basket{
   &__item{
+    position: relative;
     padding: 30px 0;
     display: flex;
     border-bottom: 1px solid #d9d9d9;
@@ -118,6 +119,17 @@
     }
   }
   &-item{
+    &__close{
+      height: 12px;
+      width: 12px;
+      position: absolute;
+      top: 20px;
+      right: -20px;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-image: url('../img/close2.svg');
+      cursor: pointer;
+    }
     &__img{
       &-wrapper{
         margin-right: 35px;
@@ -132,31 +144,6 @@
       align-items: center;
       font-size: 2.4rem;
       margin-bottom: 3px;
-
-
-
-
-
-      .amount-popup-select{
-        margin-left: -6px;
-        .select-items{
-          align-items: center;
-          background-color: rgba(254,93,141,.9);
-        }
-        .select-selected{
-          color: #2f2f2f;
-          padding: 0;
-          text-align: center;
-          &:before{
-            content: none;
-          }
-          &:after{
-            border-color: #2f2f2f transparent transparent transparent;
-            top: 13px;
-            right: -5px;
-          }
-        }
-      }
     }
     &__money{
       font-family: 'Gilroy';
@@ -165,3 +152,89 @@
     }
   }
 }
+
+// ############## Custom Select ###############
+body .btn-group{
+  width: 122px;
+  min-width: 122px;
+  margin: 0  0 6px 0;
+  // title
+  .dropdown-toggle{
+    position: relative;
+    width: 122px;
+    min-width: 122px;
+    color: #ffffff;
+    cursor: pointer;
+    user-select: none;
+    font-size: 2.4rem;
+    height: 40px;
+    padding: 3px 0 5px 45px;
+    background-image: none;
+    &:hover{
+      background-color: transparent;
+    }
+    &:before{
+      content: '';
+      width: 61px;
+      height: 3px;
+      background-color: #fff;
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+  }
+  //body
+  .dropdown-menu{
+    width: 122px;
+    min-width: 122px;
+    border: none;
+    border-radius: 0;
+    background-color: rgba(0,0,0,.2);
+    padding: 16px 14px 0;
+    max-height: 187px;
+    overflow-y: auto;
+    margin-top: 0;
+    &::-webkit-scrollbar{
+      width: 3px;
+    }
+    &::-webkit-scrollbar-thumb{
+      background-color: rgba(0,0,0,.1);
+      height: 40px;
+    }
+  }
+  //options
+  .dropdown-menu li{
+    margin-bottom: 9px;
+    a{
+      display: inline-block;
+      font-size: 2.4rem;
+      line-height: 3.5rem;
+      color: #ffffff;
+      border-radius: 4px;
+      padding: 0 15px;
+      &:hover{
+        background-color: rgba(0,0,0,.2);
+      }
+    }
+  }
+  // arrow
+  .caret{
+    border-top: 7px dashed;
+    border-right: 7px solid transparent;
+    border-left: 7px solid transparent;
+    right: 38px;
+    top: 14px;
+  }
+}
+
+body .basket-item__amount{
+  .dropdown-toggle{
+    color: #2f2f2f;
+    a{
+      color: #2f2f2f;
+    }
+  }
+}
+

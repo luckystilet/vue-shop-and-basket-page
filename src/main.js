@@ -4,7 +4,7 @@ import store from './store/'
 
 import './css/reload-styles.css'
 import './css/style.css'
-import './css/media.css'
+import '../public/css/media.css'
 
 
 Vue.config.productionTip = false
